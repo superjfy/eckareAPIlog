@@ -43,7 +43,7 @@ with open(".\etmall_" + file_time + ".txt", "r+", encoding="utf-8-sig") as f:
 for i in data:
     if "curl" in i:
         result = pattern_time.search(i)
-        compare_time_base = now + timedelta(minutes = -30)
+        compare_time_base = now + timedelta(minutes = -10)
         log_time = timeconvert(result[0])
         if log_time >= compare_time_base:
             refused_list.append(i)
