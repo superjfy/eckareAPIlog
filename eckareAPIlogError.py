@@ -26,6 +26,7 @@ def timeconvert(timestr):
     return datetime.strptime(timestr, "%Y-%m-%d %H:%M:%S")
 
 token = "URcWh4jqXmWSxmpiPoraXBDeTXu0WWcFO0fFMkIdyHp"
+allen_token = "gZs6t8RLPVzdfA2ZTZCq4qRnRtOpnWyV208fraEmyYM"
 refused_list = []
 pattern_time = re.compile(r'\d{4}-\d{2}-\d{2}\s\d{2}\:\d{2}\:\d{2}')
 headers = {
@@ -35,7 +36,7 @@ headers = {
 }
 url = "https://shop.eckare.com/snm/api_order_err/etmall_" + file_time + ".txt"
 req = requests.get(url, headers=headers)
-print(req.text)
+#print(req.text)
 
 
 refused_string = ""
@@ -45,11 +46,13 @@ if len(refused_list) > 0:
     if len(refused_string) > 250:
         msg_content = "[shop.eckare.com call api.u-mall.com.tw connection error]" + "\n" + refused_string[:250]
         lineNotify(token, msg_content)
+        lineNotify(allen_token, msg_content)
         with open("./etmall_" + str(file_time) + "scheduler.log", "a+") as fw:
             fw.write(current_time + " " + msg_content)
     else:
         msg_content = "[shop.eckare.com call api.u-mall.com.tw connection error]" + "\n"
         lineNotify(token, msg_content)
+        lineNotify(allen_token, msg_content)
         with open("./etmall_" + str(file_time) + "scheduler.log", "a+") as fw:
             fw.write(current_time + " " + msg_content)
 else:
