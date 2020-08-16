@@ -36,9 +36,17 @@ headers = {
 }
 url = "https://shop.eckare.com/snm/api_order_err/etmall_" + file_time + ".txt"
 req = requests.get(url, headers=headers)
-#print(req.text)
-
-
+with open(".\etmall_" + str(file_time) + ".txt", "wb") as code:
+    code.write(req.content)
+with open(".\etmall_" + file_time + ".txt", "r+", encoding="utf-8-sig") as f:
+    data = f.readlines()
+for i in data:
+    if "curl" in i:
+        result = pattern_time.search(i)
+        compare_time_base = now + timedelta(minutes = -30)
+        log_time = timeconvert(result[0])
+        if log_time >= compare_time_base:
+            refused_list.append(i)
 refused_string = ""
 if len(refused_list) > 0:
     for refused_content in refused_list:
@@ -46,13 +54,13 @@ if len(refused_list) > 0:
     if len(refused_string) > 250:
         msg_content = "[shop.eckare.com call api.u-mall.com.tw connection error]" + "\n" + refused_string[:250]
         lineNotify(token, msg_content)
-        lineNotify(allen_token, msg_content)
+        #lineNotify(allen_token, msg_content)
         with open("./etmall_" + str(file_time) + "scheduler.log", "a+") as fw:
             fw.write(current_time + " " + msg_content)
     else:
         msg_content = "[shop.eckare.com call api.u-mall.com.tw connection error]" + "\n"
         lineNotify(token, msg_content)
-        lineNotify(allen_token, msg_content)
+        #lineNotify(allen_token, msg_content)
         with open("./etmall_" + str(file_time) + "scheduler.log", "a+") as fw:
             fw.write(current_time + " " + msg_content)
 else:
