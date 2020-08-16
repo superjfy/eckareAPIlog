@@ -38,7 +38,6 @@ req = requests.get(url, headers=headers)
 print(req.text)
 
 
-"""
 refused_string = ""
 if len(refused_list) > 0:
     for refused_content in refused_list:
@@ -46,14 +45,13 @@ if len(refused_list) > 0:
     if len(refused_string) > 250:
         msg_content = "[shop.eckare.com call api.u-mall.com.tw connection error]" + "\n" + refused_string[:250]
         lineNotify(token, msg_content)
-        with open("E:\\etmall_" + str(file_time) + "scheduler.log", "a+") as fw:
+        with open("./etmall_" + str(file_time) + "scheduler.log", "a+") as fw:
             fw.write(current_time + " " + msg_content)
     else:
         msg_content = "[shop.eckare.com call api.u-mall.com.tw connection error]" + "\n"
         lineNotify(token, msg_content)
-        with open("E:\\etmall_" + str(file_time) + "scheduler.log", "a+") as fw:
+        with open("./etmall_" + str(file_time) + "scheduler.log", "a+") as fw:
             fw.write(current_time + " " + msg_content)
 else:
-    with open("E:\\etmall_" + str(file_time) + "scheduler.log", "a+") as fw:
+    with open("./etmall_" + str(file_time) + "scheduler.log", "a+") as fw:
         fw.write(current_time + " Check Done! \n")
-"""
