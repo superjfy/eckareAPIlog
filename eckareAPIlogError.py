@@ -3,10 +3,6 @@ import re
 from datetime import datetime
 from datetime import timedelta
 
-now = datetime.now()
-current_time = now.strftime("%Y-%m-%d %H:%M:%S")
-file_time = now.strftime("%Y%m%d")
-
 
 
 def lineNotify(token, msg):
@@ -20,11 +16,13 @@ def lineNotify(token, msg):
     return r.status_code
 
 
-
-
 def timeconvert(timestr):
     return datetime.strptime(timestr, "%Y-%m-%d %H:%M:%S")
 
+
+now = datetime.now()
+current_time = now.strftime("%Y-%m-%d %H:%M:%S")
+file_time = now.strftime("%Y%m%d")
 token = "URcWh4jqXmWSxmpiPoraXBDeTXu0WWcFO0fFMkIdyHp"
 allen_token = "gZs6t8RLPVzdfA2ZTZCq4qRnRtOpnWyV208fraEmyYM"
 refused_list = []
@@ -36,9 +34,9 @@ headers = {
 }
 url = "https://shop.eckare.com/snm/api_order_err/etmall_" + file_time + ".txt"
 req = requests.get(url, headers=headers)
-with open(".\etmall_" + str(file_time) + ".txt", "wb") as code:
+with open("./etmall_" + str(file_time) + ".txt", "wb") as code:
     code.write(req.content)
-with open(".\etmall_" + file_time + ".txt", "r+", encoding="utf-8-sig") as f:
+with open("./etmall_" + file_time + ".txt", "r+", encoding="utf-8-sig") as f:
     data = f.readlines()
 for i in data:
     if "curl" in i:
